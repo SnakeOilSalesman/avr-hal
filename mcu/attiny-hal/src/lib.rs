@@ -5,11 +5,13 @@
 //! Common HAL (hardware abstraction layer) for ATtiny* microcontrollers.
 //!
 //! **Note**: This version of the documentation was built for
+#![cfg_attr(feature = "attiny84", doc = "**ATtiny84**.")]
 #![cfg_attr(feature = "attiny85", doc = "**ATtiny85**.")]
 #![cfg_attr(feature = "attiny88", doc = "**ATtiny88**.")]
 #![cfg_attr(feature = "attiny167", doc = "**ATtiny167**.")]
+#![cfg_attr(feature = "attiny828", doc = "**ATtiny828**.")]
 #![cfg_attr(feature = "attiny2313", doc = "**ATtiny2313**.")]
-//! This means that only items which are available for this MCU are visible.  If you are using
+//! This means that only items which are available for this MCU are visible. If you are using
 //! a different chip, try building the documentation locally with:
 //!
 //! ```text
@@ -25,9 +27,11 @@ compile_error!(
 
     Please select one of the following
 
+    * attiny84
     * attiny85
     * attiny88
     * attiny167
+    * attiny828
     * attiny2313
     "
 );
@@ -52,6 +56,10 @@ pub use avr_device::attiny85 as pac;
 ///
 #[cfg(feature = "attiny88")]
 pub use avr_device::attiny88 as pac;
+/// Reexport of `attiny828` from `avr-device`
+///
+#[cfg(feature = "attiny828")]
+pub use avr_device::attiny828 as pac;
 
 /// See [`avr_device::entry`](https://docs.rs/avr-device/latest/avr_device/attr.entry.html).
 #[cfg(feature = "rt")]
@@ -121,6 +129,13 @@ macro_rules! pins {
 macro_rules! pins {
     ($p:expr) => {
         $crate::Pins::new($p.PORTA, $p.PORTB)
+    };
+}
+#[cfg(feature = "attiny828")]
+#[macro_export]
+macro_rules! pins {
+    ($p:expr) => {
+        $crate::Pins::new($p.PORTA, $p.PORTB, $p.PORTC, $p.PORTD)
     };
 }
 #[cfg(feature = "attiny2313")]
