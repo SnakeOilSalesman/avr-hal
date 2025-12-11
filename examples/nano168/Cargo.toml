@@ -17,4 +17,5 @@ path = "../../arduino-hal/"
 features = ["nano168"]
 
 [dependencies.avr-device]
-version = "0.8"
+git = "https://github.com/Rahix/avr-device.git"
+rev = "7f027c287d1a72107563ccd9f92c85638906ca10"
