@@ -101,6 +101,11 @@ pub mod spi;
 #[cfg(feature = "device-selected")]
 pub use spi::Spi;
 
+#[cfg(feature = "device-selected")]
+pub mod usart;
+#[cfg(feature = "device-selected")]
+pub use usart::Usart;
+
 pub struct Attiny;
 
 #[cfg(feature = "attiny84")]
